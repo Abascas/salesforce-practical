@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Assistant_Phone_Number_Formatting</fullName>
+        <description
+    >Removes excess formatting from assistant phone number in contact</description>
+        <field>AssistantPhone</field>
+        <formula
+    >SUBSTITUTE (SUBSTITUTE (SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE(  AssistantPhone , &quot; &quot;, &quot;&quot;) , &quot;-&quot;, &quot;&quot;) , &quot;)&quot;, &quot;&quot;) , &quot;(&quot;, &quot;&quot;) , &quot;.&quot;, &quot;&quot;) , &quot;,&quot;, &quot;&quot;)</formula>
+        <name>Assistant Phone Number Formatting</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>First_Name_Capitalization</fullName>
+        <description>Capitalize first name in contact</description>
+        <field>FirstName</field>
+        <formula
+    >UPPER(LEFT(  FirstName ,1 ))&amp;LOWER(Mid( FirstName , 2, Len( FirstName )-1))</formula>
+        <name>First Name Capitalization</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Home_Phone_Number_Formatting</fullName>
+        <description
+    >Removes excess formatting from home phone number in contact</description>
+        <field>HomePhone</field>
+        <formula
+    >SUBSTITUTE (SUBSTITUTE (SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE(  HomePhone , &quot; &quot;, &quot;&quot;) , &quot;-&quot;, &quot;&quot;) , &quot;)&quot;, &quot;&quot;) , &quot;(&quot;, &quot;&quot;) , &quot;.&quot;, &quot;&quot;) , &quot;,&quot;, &quot;&quot;)</formula>
+        <name>Home Phone Number Formatting</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Last_Name_Capitalization</fullName>
+        <description>Capitalize last name in contact</description>
+        <field>LastName</field>
+        <formula
+    >UPPER(LEFT( LastName,1 ))&amp;LOWER(Mid( LastName, 2, Len( LastName)-1))</formula>
+        <name>Last Name Capitalization</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Mobile_Phone_Number_Formatting</fullName>
+        <description
+    >Removes excess formatting from mobile phone numbers in contact</description>
+        <field>MobilePhone</field>
+        <formula
+    >SUBSTITUTE (SUBSTITUTE (SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( MobilePhone , &quot; &quot;, &quot;&quot;) , &quot;-&quot;, &quot;&quot;) , &quot;)&quot;, &quot;&quot;) , &quot;(&quot;, &quot;&quot;) , &quot;.&quot;, &quot;&quot;) , &quot;,&quot;, &quot;&quot;)</formula>
+        <name>Mobile Phone Number Formatting</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Other_Phone_Number_Formatting</fullName>
+        <description
+    >Removes excess formatting from other phone number in contact</description>
+        <field>OtherPhone</field>
+        <formula
+    >SUBSTITUTE (SUBSTITUTE (SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE(  OtherPhone , &quot; &quot;, &quot;&quot;) , &quot;-&quot;, &quot;&quot;) , &quot;)&quot;, &quot;&quot;) , &quot;(&quot;, &quot;&quot;) , &quot;.&quot;, &quot;&quot;) , &quot;,&quot;, &quot;&quot;)</formula>
+        <name>Other Phone Number Formatting</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phone_Number_Formatting</fullName>
+        <description
+    >Removes excess formatting from mobile phone number in contact</description>
+        <field>Phone</field>
+        <formula
+    >SUBSTITUTE (SUBSTITUTE (SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE(  Phone , &quot; &quot;, &quot;&quot;) , &quot;-&quot;, &quot;&quot;) , &quot;)&quot;, &quot;&quot;) , &quot;(&quot;, &quot;&quot;) , &quot;.&quot;, &quot;&quot;) , &quot;,&quot;, &quot;&quot;)</formula>
+        <name>Phone Number Formatting</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Assistant Phone Number Formatting</fullName>
+        <actions>
+            <name>Assistant_Phone_Number_Formatting</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.AssistantPhone</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description
+    >Removes excess formatting from assistant phone number in contact</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>First Name Capitalization</fullName>
+        <actions>
+            <name>First_Name_Capitalization</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.FirstName</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Capitalize first name in contact</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Home Phone Number Formatting</fullName>
+        <actions>
+            <name>Home_Phone_Number_Formatting</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.HomePhone</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description
+    >Removes excess formatting from home phone number in contact</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Last Name Capitalization</fullName>
+        <actions>
+            <name>Last_Name_Capitalization</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.LastName</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Capitalize last name in contact</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Missing Country Or State</fullName>
+        <actions>
+            <name>Missing_Country_Or_State</name>
+            <type>Task</type>
+        </actions>
+        <active>true</active>
+        <description
+    >Alert owner of missing country or state in contact</description>
+        <formula>ISBLANK( MailingCountry ) || ISBLANK( MailingState )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Mobile Phone Number Formatting</fullName>
+        <actions>
+            <name>Mobile_Phone_Number_Formatting</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.MobilePhone</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description
+    >Removes excess formatting from mobile phone number in contact</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Other Phone Number Formatting</fullName>
+        <actions>
+            <name>Other_Phone_Number_Formatting</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.OtherPhone</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description
+    >Removes excess formatting from other phone number in contact</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phone Number Formatting</fullName>
+        <actions>
+            <name>Phone_Number_Formatting</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.Phone</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description
+    >Removes excess formatting from phone number in contact</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <tasks>
+        <fullName>Missing_Country_Or_State</fullName>
+        <assignedToType>owner</assignedToType>
+        <description
+    >This contact is missing country and/or state information. Investigate and update.</description>
+        <dueDateOffset>1</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Missing Country Or State</subject>
+    </tasks>
+</Workflow>

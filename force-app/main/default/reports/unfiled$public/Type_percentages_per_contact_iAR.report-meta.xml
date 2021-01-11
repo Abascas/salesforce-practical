@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula
+    >Insert__c.Type_is_acoustic__c:SUM/ (Insert__c.Type_is_acoustic__c:SUM+Insert__c.Type_is_standard__c:SUM)</calculatedFormula>
+        <datatype>percent</datatype>
+        <description>%Acoustic</description>
+        <developerName>FORMULA1</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>%Acoustic</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula
+    >Insert__c.Type_is_standard__c:SUM/ (Insert__c.Type_is_standard__c:SUM + Insert__c.Type_is_acoustic__c:SUM)</calculatedFormula>
+        <datatype>percent</datatype>
+        <description>%Standard</description>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>%Standard</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <columns>
+        <field>Contact.Inserts__r$Name</field>
+    </columns>
+    <columns>
+        <field>Contact.Inserts__r$Insert_Type__c</field>
+    </columns>
+    <description
+  >report showing all Indow inserts grouped by contact with calculated percentage breakdown of product type per contact</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Contact$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Type percentages per contact</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Contacts_With_Inserts_Custom__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Contact$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

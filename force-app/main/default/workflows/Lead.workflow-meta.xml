@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>First_Name_Capitalization</fullName>
+        <description>Capitalize first names in lead</description>
+        <field>FirstName</field>
+        <formula
+    >UPPER(LEFT( FirstName,1 ))&amp;LOWER(Mid( FirstName, 2, Len( FirstName )-1))</formula>
+        <name>First Name Capitalization</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Last_Name_Capitalization</fullName>
+        <description>Capitalize last name in lead</description>
+        <field>LastName</field>
+        <formula
+    >UPPER(LEFT(  LastName ,1 ))&amp;LOWER(Mid( LastName , 2, Len( LastName )-1))</formula>
+        <name>Last Name Capitalization</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Mobile_Phone_Number_Formatting</fullName>
+        <description
+    >Removes excess formatting from mobile phone number in lead</description>
+        <field>MobilePhone</field>
+        <formula
+    >SUBSTITUTE (SUBSTITUTE (SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( MobilePhone , &quot; &quot;, &quot;&quot;) , &quot;-&quot;, &quot;&quot;) , &quot;)&quot;, &quot;&quot;) , &quot;(&quot;, &quot;&quot;) , &quot;.&quot;, &quot;&quot;) , &quot;,&quot;, &quot;&quot;)</formula>
+        <name>Mobile Phone Number Formatting</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phone_Number_Formatting</fullName>
+        <description
+    >Removes excess formatting from phone number in lead</description>
+        <field>Phone</field>
+        <formula
+    >SUBSTITUTE (SUBSTITUTE (SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE(  Phone , &quot; &quot;, &quot;&quot;) , &quot;-&quot;, &quot;&quot;) , &quot;)&quot;, &quot;&quot;) , &quot;(&quot;, &quot;&quot;) , &quot;.&quot;, &quot;&quot;) , &quot;,&quot;, &quot;&quot;)</formula>
+        <name>Phone Number Formatting</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>First Name Capitalization</fullName>
+        <actions>
+            <name>First_Name_Capitalization</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.FirstName</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Capitalize first name in lead</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Last Name Capitalization</fullName>
+        <actions>
+            <name>Last_Name_Capitalization</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.LastName</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Capitalize last name in lead</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Missing Country Or State</fullName>
+        <actions>
+            <name>Missing_Country_Or_State</name>
+            <type>Task</type>
+        </actions>
+        <active>true</active>
+        <description
+    >Alert owner of missing country or state in lead</description>
+        <formula>ISBLANK(  Country ) || ISBLANK(  State  )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Mobile Phone Number Formatting</fullName>
+        <actions>
+            <name>Mobile_Phone_Number_Formatting</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.MobilePhone</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description
+    >Removes excess formatting from mobile phone number in lead</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phone Number Formatting</fullName>
+        <actions>
+            <name>Phone_Number_Formatting</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Phone</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description
+    >Removes excess formatting from phone number in lead</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <tasks>
+        <fullName>Missing_Country_Or_State</fullName>
+        <assignedToType>owner</assignedToType>
+        <description
+    >This lead is missing country and/or state information. Investigate and update.</description>
+        <dueDateOffset>1</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Missing Country Or State</subject>
+    </tasks>
+</Workflow>
