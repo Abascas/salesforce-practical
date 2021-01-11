@@ -1,20 +1,25 @@
 trigger contact on Contact(before insert, before update, after insert) {
   if (Trigger.isInsert) {
     //if insert
+    System.debug('contact trigger isinsert');
     for (Contact c : Trigger.new) {
       //for each contact being updated
       if (Trigger.isBefore) {
         c.Number_of_Houses__c = 1; //update the number of houses on the contact to '1'
       }
       if (Trigger.isAfter) {
+        //originally when creating the new house object, it wasn't being related to the contact. I added "primaryHouse.Contact__c = c.Id;"
+        System.debug('contact trigger isafter');
+        //Originally if a contact was made without address information, the related house object would have 'null' in text added to its object,
+        //I did a null check on the address fields to stop this
         String mailingAddress =
-          c.MailingStreet +
+          (c.MailingStreet != null ? c.MailingStreet : '') +
           ' ' +
-          c.MailingState +
+          (c.MailingState != null ? c.MailingState : '') +
           ' ' +
-          c.MailingPostalCode +
+          (c.MailingPostalCode != null ? c.MailingPostalCode : '') +
           ' ' +
-          c.MailingCountry; //build address string
+          (c.MailingCountry != null ? c.MailingCountry : ''); //build address string
         House__c primaryHouse = new House__c(); //create new house
         primaryHouse.Contact__c = c.Id; //set contact field to current contact
         primaryHouse.Primary__c = true; //set new house to primary
@@ -26,6 +31,8 @@ trigger contact on Contact(before insert, before update, after insert) {
 
   if (Trigger.isUpdate) {
     //if update
+    //Removed the if check between house.size and c.Number_of_Houses__c because it was redundant
+    System.debug('contact trigger isupdate');
     for (Contact c : Trigger.new) {
       //for each contact being updated
       list<House__c> houses = new List<House__c>(
@@ -35,12 +42,7 @@ trigger contact on Contact(before insert, before update, after insert) {
           WHERE Contact__c = :c.Id
         ]
       ); //get all houses related to the contact
-      System.debug(houses.size());
-      System.debug(c.Number_of_Houses__c);
-      if (houses.size() != c.Number_of_Houses__c) {
-        //if the number of houses we found is different than the number currently listed on the contact
-        c.Number_of_Houses__c = houses.size(); //update the number of houses on the contact to the new number
-      }
+      c.Number_of_Houses__c = houses.size(); //update the number of houses on the contact to the current number of houses
       String mailingAddress =
         c.MailingStreet +
         ' ' +
